@@ -48,8 +48,9 @@
     --ts-valor-cel:  0 0 10px rgba(255,255,255,.32), 0 1px 2px rgba(0,0,0,.95);
     --valor-white: #ffffff;
     --valor-green: #5eead4;
-    --valor-red: #fda4af;
+    --valor-red: #fb7185;
     --valor-amber: #fef08a;
+    --valor-emerald: #34d399;
     --badge-pago-bg: rgba(74,222,128,.12);   --badge-pago-color: #86efac; --badge-pago-border: rgba(74,222,128,.5);   --badge-pago-ts: 0 0 10px rgba(74,222,128,.8);
     --badge-pend-bg: rgba(167,139,250,.14);  --badge-pend-color: #d8b4fe; --badge-pend-border: rgba(167,139,250,.5);  --badge-pend-ts: 0 0 10px rgba(167,139,250,.8);
     --badge-hoje-bg: rgba(253,224,71,.14);   --badge-hoje-color: #fef08a; --badge-hoje-border: rgba(253,224,71,.55);  --badge-hoje-ts: 0 0 10px rgba(253,224,71,.9);
@@ -101,7 +102,7 @@
     --ts-valor-red:   0 1px 2px rgba(0,0,0,.12);
     --ts-valor-amber: 0 1px 2px rgba(0,0,0,.12);
     --ts-valor-cel:   0 1px 2px rgba(0,0,0,.12);
-    --valor-white: #0f172a; --valor-green: #059669; --valor-red: #dc2626; --valor-amber: #b45309;
+    --valor-white: #0f172a; --valor-green: #059669; --valor-red: #dc2626; --valor-amber: #b45309; --valor-emerald: #047857;
     --badge-pago-bg: rgba(16,185,129,.14);   --badge-pago-color: #047857; --badge-pago-border: rgba(16,185,129,.5);   --badge-pago-ts: none;
     --badge-pend-bg: rgba(139,92,246,.14);   --badge-pend-color: #6d28d9; --badge-pend-border: rgba(139,92,246,.5);   --badge-pend-ts: none;
     --badge-hoje-bg: rgba(245,158,11,.14);   --badge-hoje-color: #b45309; --badge-hoje-border: rgba(245,158,11,.5);   --badge-hoje-ts: none;
@@ -297,6 +298,23 @@
   }
   .glass-pane:hover{ border-color: var(--card-hover-border); transform: translateY(-4px); }
 
+  /* ⭐ ABAS INTERNAS DO PERFIL */
+  .tabs-perfil {
+    display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: var(--btn-ghost-bg); border: 1px solid var(--border-glass);
+    padding: 12px 24px; border-radius: 14px; color: var(--muted); font-weight: 700; font-size: 14px;
+    cursor: pointer; transition: .2s; font-family: inherit; backdrop-filter: blur(8px);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tab-btn:hover { background: var(--btn-ghost-bg-hover); color: var(--text); }
+  .tab-btn.active {
+    background: linear-gradient(135deg, rgba(139,92,246,.2), rgba(6,182,212,.15));
+    border-color: var(--accent); color: var(--text); box-shadow: 0 0 15px rgba(139,92,246,.25);
+  }
+  .view-pane { animation: fadeIn .3s ease; }
+
   .resumo{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px; }
   .card{ padding:18px 20px; }
   .card .rotulo{
@@ -314,7 +332,7 @@
   .card .valor.ambar{ color: var(--valor-amber); text-shadow: var(--ts-valor-amber); }
   .card .detalhe{ font-size:11px; color:var(--muted); margin-top:5px; position:relative; z-index:1; text-shadow: var(--ts-base); }
 
-  /* ⭐ PAINEL DE SALDO RESERVA ATUALIZADO */
+  /* PAINEL DE SALDO RESERVA */
   .reserva-painel {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
     padding: 20px 24px; margin-bottom: 22px; gap: 16px;
@@ -353,7 +371,8 @@
   [data-theme="light"] .reserva-valor.negativo { color: #dc2626; text-shadow: 0 1px 2px rgba(0,0,0,.1); }
 
   .reserva-detalhes {
-    display: flex; gap: 20px; border-left: 1px solid var(--border-glass); padding-left: 24px;
+    display: flex; gap: 16px; border-left: 1px solid var(--border-glass); padding-left: 24px;
+    flex-wrap: wrap;
   }
   [data-theme="light"] .reserva-detalhes { border-left-color: rgba(15,23,42,0.1); }
   .reserva-detalhe-item {
@@ -363,10 +382,26 @@
     font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase;
   }
   .reserva-detalhe-item strong {
-    font-size: 18px; color: var(--text); font-weight: 800;
+    font-size: 16px; color: var(--text); font-weight: 800;
   }
   .reserva-detalhe-item.desconto strong { color: #fb7185; }
+  .reserva-detalhe-item.diario strong { color: #fbbf24; }
+  .reserva-detalhe-item.ganho strong { color: #34d399; }
+  .reserva-detalhe-item.pendente strong { color: #a78bfa; }
+  
+  .reserva-detalhe-item.livre {
+    border-left: 1px solid var(--border-glass); padding-left: 16px; margin-left: 8px;
+  }
+  [data-theme="light"] .reserva-detalhe-item.livre { border-left-color: rgba(15,23,42,0.1); }
+  .reserva-detalhe-item.livre strong { color: #34d399; }
+  .reserva-detalhe-item.livre.negativo strong { color: #fb7185; }
+
   [data-theme="light"] .reserva-detalhe-item.desconto strong { color: #dc2626; }
+  [data-theme="light"] .reserva-detalhe-item.diario strong { color: #d97706; }
+  [data-theme="light"] .reserva-detalhe-item.ganho strong { color: #059669; }
+  [data-theme="light"] .reserva-detalhe-item.pendente strong { color: #7c3aed; }
+  [data-theme="light"] .reserva-detalhe-item.livre strong { color: #059669; }
+  [data-theme="light"] .reserva-detalhe-item.livre.negativo strong { color: #dc2626; }
 
   /* Botões de editar/excluir reserva */
   .reserva-actions { display: flex; gap: 4px; position: relative; z-index: 1; margin-left: 10px; }
@@ -394,9 +429,10 @@
   .btn-reserva-sub { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); color: #fff; border: none; box-shadow: 0 4px 15px rgba(244,63,94,.4); }
   .btn-reserva-sub:hover { filter: brightness(1.1); transform: translateY(-2px); }
 
-  @media (max-width: 850px) {
+  @media (max-width: 950px) {
     .reserva-valores-container { flex-direction: column; align-items: flex-start; gap: 16px; }
     .reserva-detalhes { border-left: none; padding-left: 0; border-top: 1px solid var(--border-glass); padding-top: 12px; width: 100%; }
+    .reserva-detalhe-item.livre { border-left: none; padding-left: 0; margin-left: 0; width: 100%; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-glass); }
   }
   @media (max-width: 650px) {
     .reserva-painel { flex-direction: column; align-items: flex-start; }
@@ -616,7 +652,7 @@
     display: block; margin-bottom: 12px;
     font-size: 11px; text-transform: uppercase;
     letter-spacing: .6px; font-weight: 800; color: var(--muted);
-    text-shadow: var(--ts-base);
+    text-shadow:var(--ts-base);
   }
   .modal-content label input{
     display: block; margin-top: 7px;
@@ -674,11 +710,12 @@
     .tela-bloqueio{ padding: 44px 16px 40px; }
     .bloqueio-cadeado{ font-size: 54px; }
     .tela-bloqueio h2{ font-size: 20px; }
+    .tab-btn { flex: 1; justify-content: center; padding: 10px; font-size: 13px; }
   }
   @media print{
     @page{ margin:14mm; }
     body{ background:#fff !important; background-image:none !important; color:#111 !important; padding:0; }
-    .bg, .no-print, .perfis-bar, .modal-overlay, .tela-bloqueio{ display:none !important; }
+    .bg, .no-print, .perfis-bar, .modal-overlay, .tela-bloqueio, .tabs-perfil{ display:none !important; }
     .card, .painel, .alerta, .tabela-wrap, .btn-ghost, .icon-btn{
       background:#fff !important; border:1px solid #cfcfcf !important;
       backdrop-filter:none !important; -webkit-backdrop-filter:none !important; color:#111 !important;
@@ -731,124 +768,220 @@
   <!-- CONTEÚDO PRINCIPAL -->
   <div id="conteudoPrincipal">
     
-    <!-- ⭐ PAINEL DE SALDO RESERVA -->
-    <section class="painel glass-pane reserva-painel no-print">
-      <div class="reserva-info">
-        <h2>🐖 Saldo Reserva</h2>
-        <div class="reserva-valores-container">
-          <div class="reserva-principal">
-            <span class="reserva-label">Saldo Atual Disponível</span>
-            <div class="reserva-valor-wrapper">
-              <div class="reserva-valor" id="reservaValor">R$ 0,00</div>
-              <div class="reserva-actions">
-                <button class="reserva-icon-btn" id="btnEditarReserva" title="Editar valor total do saldo">✏️</button>
-                <button class="reserva-icon-btn danger" id="btnExcluirReserva" title="Zerar saldo reserva">🗑️</button>
+    <!-- ABAS DO PERFIL -->
+    <div class="tabs-perfil no-print" id="abasPerfil">
+      <button class="tab-btn active" data-target="view-contas">
+        <span>📋</span> Contas e Resumo
+      </button>
+      <button class="tab-btn" data-target="view-reserva">
+        <span>🐖</span> Saldo, Ganhos e Gastos
+      </button>
+    </div>
+
+    <!-- ABA 1: CONTAS E RESUMO -->
+    <div id="view-contas" class="view-pane">
+      <div class="lembretes" id="lembretes"></div>
+
+      <section class="resumo">
+        <div class="card glass-pane">
+          <div class="rotulo">Total de despesas</div>
+          <div class="valor" id="totalGeral">R$ 0,00</div>
+          <div class="detalhe" id="totalGeralDetalhe">—</div>
+        </div>
+        <div class="card glass-pane">
+          <div class="rotulo">Pago</div>
+          <div class="valor verde" id="totalPago">R$ 0,00</div>
+          <div class="detalhe" id="totalPagoDetalhe">—</div>
+        </div>
+        <div class="card glass-pane">
+          <div class="rotulo">Pendente</div>
+          <div class="valor ambar" id="totalPendente">R$ 0,00</div>
+          <div class="detalhe" id="totalPendenteDetalhe">—</div>
+        </div>
+        <div class="card glass-pane">
+          <div class="rotulo">Atrasado</div>
+          <div class="valor vermelho" id="totalAtrasado">R$ 0,00</div>
+          <div class="detalhe" id="totalAtrasadoDetalhe">—</div>
+        </div>
+      </section>
+
+      <section class="painel glass-pane no-print">
+        <h2 id="tituloForm">Nova despesa</h2>
+        <form id="formDespesa" novalidate>
+          <div class="grid-form">
+            <label>Descrição
+              <input type="text" id="descricao" placeholder="Ex.: Energia elétrica" autocomplete="off">
+            </label>
+            <label>Valor (R$)
+              <input type="number" id="valor" step="0.01" min="0" placeholder="0,00">
+            </label>
+            <label>Vencimento
+              <input type="date" id="vencimento">
+            </label>
+            <label class="check">
+              <input type="checkbox" id="pago"> Já está paga
+            </label>
+          </div>
+          <div class="acoes-form">
+            <button type="submit" class="btn btn-primary" id="btnSalvar">Adicionar despesa</button>
+            <button type="button" class="btn btn-ghost" id="btnCancelar" hidden>Cancelar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="painel glass-pane">
+        <h2>Contas</h2>
+        <div class="filtros no-print">
+          <label>Mês
+            <select id="filtroMes"></select>
+          </label>
+          <label>Situação
+            <select id="filtroStatus">
+              <option value="">Todas</option>
+              <option value="pendente">Pendentes</option>
+              <option value="pago">Pagas</option>
+              <option value="atrasado">Atrasadas</option>
+              <option value="hoje">Vencem hoje</option>
+            </select>
+          </label>
+          <label>Buscar
+            <input type="text" id="busca" placeholder="Descrição...">
+          </label>
+        </div>
+
+        <div class="tabela-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Descrição</th>
+                <th>Vencimento</th>
+                <th>Situação</th>
+                <th style="text-align:right">Valor</th>
+                <th class="no-print" style="text-align:right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABA 2: SALDO RESERVA, GANHOS E GASTOS DIÁRIOS -->
+    <div id="view-reserva" class="view-pane" hidden>
+      
+      <!-- Painel de Saldo Reserva -->
+      <section class="painel glass-pane reserva-painel no-print">
+        <div class="reserva-info">
+          <h2>🐖 Saldo Reserva</h2>
+          <div class="reserva-valores-container">
+            <div class="reserva-principal">
+              <span class="reserva-label">Saldo Atual Disponível</span>
+              <div class="reserva-valor-wrapper">
+                <div class="reserva-valor" id="reservaValor">R$ 0,00</div>
+                <div class="reserva-actions">
+                  <button class="reserva-icon-btn" id="btnEditarReserva" title="Editar valor total do saldo">✏️</button>
+                  <button class="reserva-icon-btn danger" id="btnExcluirReserva" title="Zerar saldo atual e recalcular">🗑️</button>
+                </div>
+              </div>
+            </div>
+            <div class="reserva-detalhes">
+              <div class="reserva-detalhe-item ganho">
+                <span>Ganhos</span>
+                <strong id="reservaTotalGanho">R$ 0,00</strong>
+              </div>
+              <div class="reserva-detalhe-item desconto">
+                <span>Contas Pagas</span>
+                <strong id="reservaTotalDesc">R$ 0,00</strong>
+              </div>
+              <div class="reserva-detalhe-item diario">
+                <span>Gastos Diários</span>
+                <strong id="reservaTotalDiario">R$ 0,00</strong>
+              </div>
+              <div class="reserva-detalhe-item pendente">
+                <span>A Pagar</span>
+                <strong id="reservaTotalPendente">R$ 0,00</strong>
+              </div>
+              <div class="reserva-detalhe-item livre" id="containerSaldoLivre">
+                <span>Saldo Livre</span>
+                <strong id="reservaTotalLivre">R$ 0,00</strong>
               </div>
             </div>
           </div>
-          <div class="reserva-detalhes">
-            <div class="reserva-detalhe-item">
-              <span>Total Guardado</span>
-              <strong id="reservaTotalAdd">R$ 0,00</strong>
-            </div>
-            <div class="reserva-detalhe-item desconto">
-              <span>Contas Pagas</span>
-              <strong id="reservaTotalDesc">R$ 0,00</strong>
-            </div>
+        </div>
+        <div class="reserva-controles">
+          <input type="number" id="reservaInput" step="0.01" min="0" placeholder="R$ 0,00">
+          <button class="btn btn-reserva-add" id="btnAddReserva">Guardar</button>
+          <button class="btn btn-reserva-sub" id="btnSubReserva">Retirar</button>
+        </div>
+      </section>
+
+      <!-- Painel de Ganhos (Receitas) -->
+      <section class="painel glass-pane no-print" id="painelGanhos">
+        <h2>💰 Ganhos / Receitas</h2>
+        <form id="formGanho" novalidate>
+          <div class="grid-form" style="grid-template-columns: 2fr 1fr 1fr auto; gap: 10px;">
+            <label>Descrição
+              <input type="text" id="ganhoDesc" placeholder="Ex.: Salário, Venda, Freelance..." autocomplete="off" required>
+            </label>
+            <label>Valor (R$)
+              <input type="number" id="ganhoValor" step="0.01" min="0" placeholder="0,00" required>
+            </label>
+            <label>Data
+              <input type="date" id="ganhoData" required>
+            </label>
+            <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669);">Adicionar</button>
           </div>
+        </form>
+
+        <div class="tabela-wrap" style="margin-top: 16px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th style="text-align:right">Valor</th>
+                <th class="no-print" style="text-align:right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaGanhosBody"></tbody>
+          </table>
         </div>
-      </div>
-      <div class="reserva-controles">
-        <input type="number" id="reservaInput" step="0.01" min="0" placeholder="R$ 0,00">
-        <button class="btn btn-reserva-add" id="btnAddReserva">Guardar</button>
-        <button class="btn btn-reserva-sub" id="btnSubReserva">Retirar</button>
-      </div>
-    </section>
+      </section>
 
-    <div class="lembretes" id="lembretes"></div>
+      <!-- Painel de Gastos Diários -->
+      <section class="painel glass-pane no-print" id="painelGastosDiarios">
+        <h2>💸 Gastos do Dia</h2>
+        <form id="formGastoDiario" novalidate>
+          <div class="grid-form" style="grid-template-columns: 2fr 1fr 1fr auto; gap: 10px;">
+            <label>Descrição
+              <input type="text" id="gastoDesc" placeholder="Ex.: Almoço, Uber..." autocomplete="off" required>
+            </label>
+            <label>Valor (R$)
+              <input type="number" id="gastoValor" step="0.01" min="0" placeholder="0,00" required>
+            </label>
+            <label>Data
+              <input type="date" id="gastoData" required>
+            </label>
+            <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #f59e0b, #d97706);">Adicionar</button>
+          </div>
+        </form>
 
-    <section class="resumo">
-      <div class="card glass-pane">
-        <div class="rotulo">Total de despesas</div>
-        <div class="valor" id="totalGeral">R$ 0,00</div>
-        <div class="detalhe" id="totalGeralDetalhe">—</div>
-      </div>
-      <div class="card glass-pane">
-        <div class="rotulo">Pago</div>
-        <div class="valor verde" id="totalPago">R$ 0,00</div>
-        <div class="detalhe" id="totalPagoDetalhe">—</div>
-      </div>
-      <div class="card glass-pane">
-        <div class="rotulo">Pendente</div>
-        <div class="valor ambar" id="totalPendente">R$ 0,00</div>
-        <div class="detalhe" id="totalPendenteDetalhe">—</div>
-      </div>
-      <div class="card glass-pane">
-        <div class="rotulo">Atrasado</div>
-        <div class="valor vermelho" id="totalAtrasado">R$ 0,00</div>
-        <div class="detalhe" id="totalAtrasadoDetalhe">—</div>
-      </div>
-    </section>
-
-    <section class="painel glass-pane no-print">
-      <h2 id="tituloForm">Nova despesa</h2>
-      <form id="formDespesa" novalidate>
-        <div class="grid-form">
-          <label>Descrição
-            <input type="text" id="descricao" placeholder="Ex.: Energia elétrica" autocomplete="off">
-          </label>
-          <label>Valor (R$)
-            <input type="number" id="valor" step="0.01" min="0" placeholder="0,00">
-          </label>
-          <label>Vencimento
-            <input type="date" id="vencimento">
-          </label>
-          <label class="check">
-            <input type="checkbox" id="pago"> Já está paga
-          </label>
+        <div class="tabela-wrap" style="margin-top: 16px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th style="text-align:right">Valor</th>
+                <th class="no-print" style="text-align:right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaGastosBody"></tbody>
+          </table>
         </div>
-        <div class="acoes-form">
-          <button type="submit" class="btn btn-primary" id="btnSalvar">Adicionar despesa</button>
-          <button type="button" class="btn btn-ghost" id="btnCancelar" hidden>Cancelar</button>
-        </div>
-      </form>
-    </section>
+      </section>
+    </div>
 
-    <section class="painel glass-pane">
-      <h2>Contas</h2>
-      <div class="filtros no-print">
-        <label>Mês
-          <select id="filtroMes"></select>
-        </label>
-        <label>Situação
-          <select id="filtroStatus">
-            <option value="">Todas</option>
-            <option value="pendente">Pendentes</option>
-            <option value="pago">Pagas</option>
-            <option value="atrasado">Atrasadas</option>
-            <option value="hoje">Vencem hoje</option>
-          </select>
-        </label>
-        <label>Buscar
-          <input type="text" id="busca" placeholder="Descrição...">
-        </label>
-      </div>
-
-      <div class="tabela-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Vencimento</th>
-              <th>Situação</th>
-              <th style="text-align:right">Valor</th>
-              <th class="no-print" style="text-align:right">Ações</th>
-            </tr>
-          </thead>
-          <tbody id="tabelaBody"></tbody>
-        </table>
-      </div>
-    </section>
   </div>
 
   <!-- TELA DE BLOQUEIO -->
@@ -1068,21 +1201,24 @@ function hashSenha(s){
 const PROFILES_KEY       = 'painel-perfis';
 const PROFILE_ACTIVE_KEY = 'painel-perfil-ativo';
 const DESPESAS_PREFIX    = 'painel-despesas-';
+const GANHOS_PREFIX      = 'painel-ganhos-';
+const GASTOS_PREFIX      = 'painel-gastos-diarios-';
 const RESERVA_PREFIX     = 'painel-reserva-';
 
 let perfis = [];
 let perfilAtivo = null;
 let despesas = [];
+let ganhos = [];
+let gastosDiarios = [];
 let editandoId = null;
 
-// ⭐ Variáveis do Saldo Reserva (Agora com histórico separado)
-let saldoReserva = 0;
-let reservaTotalAdd = 0;
-let reservaTotalDesc = 0;
+let baseFundo = 0; 
 
 function uid(){ return (crypto && crypto.randomUUID) ? crypto.randomUUID() : 'id-' + Date.now().toString(36) + Math.random().toString(36).slice(2); }
 function esc(str){ return String(str).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
 function despesasKey(perfilId){ return DESPESAS_PREFIX + perfilId; }
+function ganhosKey(perfilId){ return GANHOS_PREFIX + perfilId; }
+function gastosKey(perfilId){ return GASTOS_PREFIX + perfilId; }
 function reservaKey(perfilId){ return RESERVA_PREFIX + perfilId; }
 
 function corDoNome(nome){
@@ -1167,49 +1303,51 @@ function salvar(){
   catch(e){ alert('Não foi possível salvar os dados.'); }
 }
 
-/* ⭐ Funções do Saldo Reserva (com histórico de adição e desconto) */
+function carregarGanhos(){
+  if(!perfilAtivo){ ganhos = []; return; }
+  try{
+    const raw = localStorage.getItem(ganhosKey(perfilAtivo));
+    ganhos = raw ? JSON.parse(raw) : [];
+    if(!Array.isArray(ganhos)) ganhos = [];
+  }catch(e){ ganhos = []; }
+}
+function salvarGanhos(){
+  if(!perfilAtivo) return;
+  try{ localStorage.setItem(ganhosKey(perfilAtivo), JSON.stringify(ganhos)); }
+  catch(e){ alert('Não foi possível salvar os ganhos.'); }
+}
+
+function carregarGastosDiarios(){
+  if(!perfilAtivo){ gastosDiarios = []; return; }
+  try{
+    const raw = localStorage.getItem(gastosKey(perfilAtivo));
+    gastosDiarios = raw ? JSON.parse(raw) : [];
+    if(!Array.isArray(gastosDiarios)) gastosDiarios = [];
+  }catch(e){ gastosDiarios = []; }
+}
+function salvarGastosDiarios(){
+  if(!perfilAtivo) return;
+  try{ localStorage.setItem(gastosKey(perfilAtivo), JSON.stringify(gastosDiarios)); }
+  catch(e){ alert('Não foi possível salvar os gastos diários.'); }
+}
+
 function carregarReserva(){
-  if(!perfilAtivo){ 
-    saldoReserva = 0; reservaTotalAdd = 0; reservaTotalDesc = 0; 
-    return; 
-  }
+  if(!perfilAtivo){ baseFundo = 0; return; }
   try{
     const raw = localStorage.getItem(reservaKey(perfilAtivo));
     if(!raw){
-      saldoReserva = 0; reservaTotalAdd = 0; reservaTotalDesc = 0;
+      baseFundo = 0;
     } else {
-      // Tenta ler o novo formato JSON (objeto)
-      try {
-        const obj = JSON.parse(raw);
-        if(typeof obj === 'object' && obj !== null){
-          saldoReserva = parseFloat(obj.saldo) || 0;
-          reservaTotalAdd = parseFloat(obj.adicionado) || 0;
-          reservaTotalDesc = parseFloat(obj.descontado) || 0;
-        } else {
-          // Fallback para formato antigo (apenas número)
-          saldoReserva = parseFloat(raw) || 0;
-          // Calcula o total adicionado baseando-se nas contas já pagas
-          const totalPago = despesas.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
-          reservaTotalAdd = saldoReserva + totalPago;
-          reservaTotalDesc = totalPago;
-        }
-      } catch(e) {
-        saldoReserva = parseFloat(raw) || 0;
-        reservaTotalAdd = saldoReserva;
-        reservaTotalDesc = 0;
-      }
+      const obj = JSON.parse(raw);
+      baseFundo = parseFloat(obj.saldo) || 0;
     }
-  }catch(e){ saldoReserva = 0; reservaTotalAdd = 0; reservaTotalDesc = 0; }
+  }catch(e){ baseFundo = 0; }
 }
 
 function salvarReserva(){
   if(!perfilAtivo) return;
   try{ 
-    const dados = {
-      saldo: saldoReserva,
-      adicionado: reservaTotalAdd,
-      descontado: reservaTotalDesc
-    };
+    const dados = { saldo: baseFundo };
     localStorage.setItem(reservaKey(perfilAtivo), JSON.stringify(dados)); 
   }
   catch(e){ alert('Erro ao salvar a reserva.'); }
@@ -1217,44 +1355,37 @@ function salvarReserva(){
 
 function renderReserva(){
   const elSaldo = document.getElementById('reservaValor');
-  const elAdd = document.getElementById('reservaTotalAdd');
+  const elGanho = document.getElementById('reservaTotalGanho');
   const elDesc = document.getElementById('reservaTotalDesc');
+  const elDiario = document.getElementById('reservaTotalDiario');
+  const elPendente = document.getElementById('reservaTotalPendente');
+  const elLivre = document.getElementById('reservaTotalLivre');
+  const containerLivre = document.getElementById('containerSaldoLivre');
   
+  const totalGanhos = ganhos.reduce((s, g) => s + g.valor, 0);
+  const totalPagos = despesas.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
+  const totalDiarios = gastosDiarios.reduce((s, g) => s + g.valor, 0);
+  const totalPendentes = despesas.filter(d => !d.pago).reduce((s, d) => s + d.valor, 0);
+  
+  const saldoAtual = baseFundo;
+  const saldoLivre = baseFundo + totalGanhos - totalPagos - totalDiarios;
+
   if(elSaldo) {
-    elSaldo.textContent = formatarMoeda(saldoReserva);
-    if(saldoReserva < 0) elSaldo.classList.add('negativo');
+    elSaldo.textContent = formatarMoeda(saldoAtual);
+    if(saldoAtual < 0) elSaldo.classList.add('negativo');
     else elSaldo.classList.remove('negativo');
   }
-  if(elAdd) elAdd.textContent = formatarMoeda(reservaTotalAdd);
-  if(elDesc) elDesc.textContent = formatarMoeda(reservaTotalDesc);
-}
-
-/* ⭐ Ajusta o saldo e o histórico ao mesmo tempo */
-function ajustarReserva(valor, tipo) {
-  if (!perfilAtivo) return;
+  if(elGanho) elGanho.textContent = formatarMoeda(totalGanhos);
   
-  if (tipo === 'deposito') {
-    saldoReserva += valor;
-    reservaTotalAdd += valor;
-  } 
-  else if (tipo === 'saque') {
-    saldoReserva -= valor;
-    // Não altera o totalAdicionado em um saque manual, apenas o saldo.
-  }
-  else if (tipo === 'conta-paga') {
-    saldoReserva -= valor;
-    reservaTotalDesc += valor;
-  } 
-  else if (tipo === 'conta-desfeita') {
-    saldoReserva += valor;
-    reservaTotalDesc -= valor;
-  }
+  if(elDesc) elDesc.textContent = totalPagos > 0 ? `- ${formatarMoeda(totalPagos)}` : formatarMoeda(0);
+  if(elDiario) elDiario.textContent = totalDiarios > 0 ? `- ${formatarMoeda(totalDiarios)}` : formatarMoeda(0);
+  if(elPendente) elPendente.textContent = formatarMoeda(totalPendentes);
 
-  // Impede que o total descontado fique negativo por erro de arredondamento
-  if (reservaTotalDesc < 0) reservaTotalDesc = 0;
-
-  salvarReserva();
-  renderReserva();
+  if(elLivre) {
+    elLivre.textContent = formatarMoeda(saldoLivre);
+    if(saldoLivre < 0) containerLivre.classList.add('negativo');
+    else containerLivre.classList.remove('negativo');
+  }
 }
 
 function renderPerfis(){
@@ -1335,6 +1466,8 @@ function efetivarTrocaPerfil(id){
   if(!jaEraAtivo){
     if(perfilAtivo){
       try{ localStorage.setItem(despesasKey(perfilAtivo), JSON.stringify(despesas)); }catch(e){}
+      try{ localStorage.setItem(ganhosKey(perfilAtivo), JSON.stringify(ganhos)); }catch(e){}
+      try{ localStorage.setItem(gastosKey(perfilAtivo), JSON.stringify(gastosDiarios)); }catch(e){}
       
       const perfilSaindo = perfis.find(x => x.id === perfilAtivo);
       if (perfilSaindo && perfilSaindo.senhaHash) {
@@ -1345,6 +1478,8 @@ function efetivarTrocaPerfil(id){
     perfilAtivo = id;
     try{ localStorage.setItem(PROFILE_ACTIVE_KEY, id); }catch(e){}
     carregarDespesas();
+    carregarGanhos();
+    carregarGastosDiarios();
     carregarReserva();
     
     resetForm();
@@ -1352,6 +1487,17 @@ function efetivarTrocaPerfil(id){
     filtroStatus.value = '';
     buscaInput.value = '';
     document.getElementById('reservaInput').value = '';
+    document.getElementById('ganhoDesc').value = '';
+    document.getElementById('ganhoValor').value = '';
+    document.getElementById('ganhoData').value = hojeStr();
+    document.getElementById('gastoDesc').value = '';
+    document.getElementById('gastoValor').value = '';
+    document.getElementById('gastoData').value = hojeStr();
+
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.view-pane').forEach(v => v.hidden = true);
+    document.querySelector('.tab-btn[data-target="view-contas"]').classList.add('active');
+    document.getElementById('view-contas').hidden = false;
   }
 
   render();
@@ -1402,6 +1548,8 @@ function excluirPerfil(id){
 
   perfis = perfis.filter(x => x.id !== id);
   localStorage.removeItem(despesasKey(id));
+  localStorage.removeItem(ganhosKey(id));
+  localStorage.removeItem(gastosKey(id));
   localStorage.removeItem(reservaKey(id));
   desmarcarLogado(id);
   salvarPerfis();
@@ -1413,6 +1561,8 @@ function excluirPerfil(id){
     perfilAtivo = proximo.id;
     try{ localStorage.setItem(PROFILE_ACTIVE_KEY, proximo.id); }catch(e){}
     carregarDespesas();
+    carregarGanhos();
+    carregarGastosDiarios();
     carregarReserva();
     if(perfilEstaBloqueado(proximo.id)){
       setTimeout(() => abrirLoginModal(proximo.id), 100);
@@ -1465,6 +1615,18 @@ document.getElementById('perfisLista').addEventListener('click', (e) => {
   if(tab) tentarAcessarPerfil(tab.dataset.perfil);
 });
 document.getElementById('btnNovoPerfil').addEventListener('click', abrirModalNovoPerfil);
+
+document.getElementById('abasPerfil').addEventListener('click', (e) => {
+  const btn = e.target.closest('.tab-btn');
+  if(!btn) return;
+  
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.view-pane').forEach(v => v.hidden = true);
+  
+  btn.classList.add('active');
+  const target = document.getElementById(btn.dataset.target);
+  if(target) target.hidden = false;
+});
 
 
 /* =========================================================
@@ -1711,7 +1873,7 @@ document.getElementById('btnDigitarSenha').addEventListener('click', () => {
 
 
 /* =========================================================
-   PAINEL (despesas e reserva)
+   PAINEL (despesas, ganhos, gastos diários e reserva)
    ========================================================= */
 const $ = (sel) => document.querySelector(sel);
 const form        = $('#formDespesa');
@@ -1728,6 +1890,18 @@ const filtroStatus= $('#filtroStatus');
 const buscaInput  = $('#busca');
 const reservaInput = $('#reservaInput');
 
+const formGanho = $('#formGanho');
+const ganhoDesc = $('#ganhoDesc');
+const ganhoValor = $('#ganhoValor');
+const ganhoData = $('#ganhoData');
+const tabelaGanhosBody = $('#tabelaGanhosBody');
+
+const formGastoDiario = $('#formGastoDiario');
+const gastoDesc = $('#gastoDesc');
+const gastoValor = $('#gastoValor');
+const gastoData = $('#gastoData');
+const tabelaGastosBody = $('#tabelaGastosBody');
+
 function isoDe(data){ const a = data.getFullYear(); const m = String(data.getMonth() + 1).padStart(2, '0'); const d = String(data.getDate()).padStart(2, '0'); return `${a}-${m}-${d}`; }
 function hojeStr(){ return isoDe(new Date()); }
 function formatarMoeda(v){ return Number(v).toLocaleString('pt-BR', { style:'currency', currency:'BRL' }); }
@@ -1735,67 +1909,224 @@ function formatarData(iso){ if(!iso) return '—'; const [a, m, d] = iso.split('
 function statusDe(d){ if(d.pago) return 'pago'; const hoje = hojeStr(); if(d.vencimento < hoje) return 'atrasado'; if(d.vencimento === hoje) return 'hoje'; return 'pendente'; }
 const rotuloStatus = { pago: 'Pago', pendente: 'Pendente', hoje: 'Vence hoje', atrasado: 'Atrasado' };
 
-/* ⭐ Eventos do Saldo Reserva (Guardar, Retirar, Editar, Zerar) */
 $('#btnAddReserva').addEventListener('click', () => {
   if(!perfilAtivo || perfilEstaBloqueado(perfilAtivo)) return;
   const val = parseFloat(reservaInput.value);
   if(isNaN(val) || val <= 0) return alert('Informe um valor maior que zero para guardar.');
-  ajustarReserva(val, 'deposito');
+  baseFundo += val;
+  salvarReserva();
   reservaInput.value = '';
   reservaInput.focus();
+  renderReserva();
 });
 
 $('#btnSubReserva').addEventListener('click', () => {
   if(!perfilAtivo || perfilEstaBloqueado(perfilAtivo)) return;
   const val = parseFloat(reservaInput.value);
   if(isNaN(val) || val <= 0) return alert('Informe um valor maior que zero para retirar.');
-  if(val > saldoReserva && saldoReserva >= 0) {
-    if(!confirm('O valor é maior que o saldo atual. Deseja deixar o saldo negativo?')) return;
-  }
-  ajustarReserva(val, 'saque');
+  
+  baseFundo -= val;
+  salvarReserva();
   reservaInput.value = '';
   reservaInput.focus();
+  renderReserva();
 });
 
 $('#btnEditarReserva').addEventListener('click', () => {
   if(!perfilAtivo || perfilEstaBloqueado(perfilAtivo)) return;
-  const novo = prompt(`Editar Saldo Atual (Atual: ${formatarMoeda(saldoReserva)}):\n\nDigite o novo valor total disponível:`, saldoReserva.toFixed(2));
+  
+  const totalGanhos = ganhos.reduce((s, g) => s + g.valor, 0);
+  const totalPagos = despesas.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
+  const totalDiarios = gastosDiarios.reduce((s, g) => s + g.valor, 0);
+  const saldoAtual = baseFundo; // Apenas para exibir no prompt
+  const saldoLivre = baseFundo + totalGanhos - totalPagos - totalDiarios;
+
+  const novo = prompt(`Editar Saldo Base (Atual: ${formatarMoeda(baseFundo)}):\n\nSaldo Livre com contas atuais: ${formatarMoeda(saldoLivre)}\n\nDigite o novo valor Base:`, baseFundo.toFixed(2));
   if(novo === null) return;
   const val = parseFloat(novo.replace(',', '.'));
   if(isNaN(val)) return alert('Valor inválido.');
-  
-  // Ajusta o total adicionado para refletir a diferença inserida manualmente
-  const diff = val - saldoReserva;
-  if (diff > 0) reservaTotalAdd += diff;
-  
-  saldoReserva = val;
+
+  baseFundo = val;
   salvarReserva();
   renderReserva();
 });
 
 $('#btnExcluirReserva').addEventListener('click', () => {
   if(!perfilAtivo || perfilEstaBloqueado(perfilAtivo)) return;
-  if(!confirm('Tem certeza que deseja ZERAR o saldo reserva deste perfil?\n\nO histórico de "Total Guardado" e "Contas Pagas" também será resetado.')) return;
-  saldoReserva = 0;
-  reservaTotalAdd = 0;
-  reservaTotalDesc = 0;
+  if(!confirm('Tem certeza que deseja ZERAR o Saldo Atual Base?\n\nO histórico de "Contas Pagas", "A Pagar" e "Gastos Diários" será mantido.')) return;
+  
+  baseFundo = 0;
   salvarReserva();
   renderReserva();
+});
+
+formGanho.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if(!perfilAtivo || perfilEstaBloqueado(perfilAtivo)) return;
+  
+  const desc = ganhoDesc.value.trim();
+  const val = parseFloat(ganhoValor.value);
+  const data = ganhoData.value;
+  
+  if(!desc){ alert('Informe a descrição do ganho.'); ganhoDesc.focus(); return; }
+  if(isNaN(val) || val <= 0){ alert('Informe um valor válido.'); ganhoValor.focus(); return; }
+  if(!data){ alert('Informe a data.'); ganhoData.focus(); return; }
+
+  const novoGanho = { id: uid(), descricao: desc, valor: val, data, criadoEm: Date.now() };
+  ganhos.push(novoGanho);
+  
+  salvarGanhos();
+  ganhoDesc.value = '';
+  ganhoValor.value = '';
+  ganhoData.value = hojeStr();
+  
+  renderGanhos();
+  renderReserva();
+});
+
+function renderGanhos(){
+  if(!tabelaGanhosBody) return;
+  
+  if(!ganhos.length){
+    tabelaGanhosBody.innerHTML = `<tr><td colspan="4" class="vazio" style="padding: 20px;">Nenhum ganho registrado.</td></tr>`;
+    return;
+  }
+  
+  const lista = [...ganhos].sort((a, b) => b.data.localeCompare(a.data) || b.criadoEm - a.criadoEm);
+  
+  tabelaGanhosBody.innerHTML = lista.map(g => {
+    return `<tr>
+      <td>${formatarData(g.data)}</td>
+      <td>${esc(g.descricao)}</td>
+      <td class="valor-cel" style="text-align:right; color: var(--valor-emerald);">${formatarMoeda(g.valor)}</td>
+      <td class="no-print"><div class="acoes">
+        <button class="icon-btn" data-acao="editar-ganho" data-id="${g.id}" title="Editar ganho">✏️</button>
+        <button class="icon-btn danger" data-acao="excluir-ganho" data-id="${g.id}" title="Excluir ganho">🗑️</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+tabelaGanhosBody.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-acao]'); if(!btn) return;
+  if(perfilAtivo && perfilEstaBloqueado(perfilAtivo)) return;
+  const id = btn.dataset.id, acao = btn.dataset.acao;
+  
+  if(acao === 'excluir-ganho') {
+    const g = ganhos.find(x => x.id === id); if(!g) return;
+    if(confirm(`Excluir o ganho "${g.descricao}"? O valor sairá do saldo.`)){ 
+      ganhos = ganhos.filter(x => x.id !== id); 
+      salvarGanhos(); 
+      renderGanhos(); 
+      renderReserva();
+    }
+  }
+  if(acao === 'editar-ganho') {
+    const g = ganhos.find(x => x.id === id); if(!g) return;
+    const novaDesc = prompt('Editar descrição:', g.descricao);
+    if(novaDesc === null) return;
+    const novoValorStr = prompt('Editar valor:', g.valor.toFixed(2));
+    if(novoValorStr === null) return;
+    const novoValor = parseFloat(novoValorStr.replace(',', '.'));
+    if(isNaN(novoValor) || novoValor <= 0) return alert('Valor inválido.');
+    
+    g.descricao = novaDesc.trim() || g.descricao;
+    g.valor = novoValor;
+    salvarGanhos();
+    renderGanhos();
+    renderReserva();
+  }
+});
+
+formGastoDiario.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if(!perfilAtivo || perfilEstaBloqueado(perfilAtivo)) return;
+  
+  const desc = gastoDesc.value.trim();
+  const val = parseFloat(gastoValor.value);
+  const data = gastoData.value;
+  
+  if(!desc){ alert('Informe a descrição do gasto.'); gastoDesc.focus(); return; }
+  if(isNaN(val) || val <= 0){ alert('Informe um valor válido.'); gastoValor.focus(); return; }
+  if(!data){ alert('Informe a data.'); gastoData.focus(); return; }
+
+  const novoGasto = { id: uid(), descricao: desc, valor: val, data, criadoEm: Date.now() };
+  gastosDiarios.push(novoGasto);
+  
+  salvarGastosDiarios();
+  gastoDesc.value = '';
+  gastoValor.value = '';
+  gastoData.value = hojeStr();
+  
+  renderGastosDiarios();
+  renderReserva();
+});
+
+function renderGastosDiarios(){
+  if(!tabelaGastosBody) return;
+  
+  if(!gastosDiarios.length){
+    tabelaGastosBody.innerHTML = `<tr><td colspan="4" class="vazio" style="padding: 20px;">Nenhum gasto diário registrado.</td></tr>`;
+    return;
+  }
+  
+  const lista = [...gastosDiarios].sort((a, b) => b.data.localeCompare(a.data) || b.criadoEm - a.criadoEm);
+  
+  tabelaGastosBody.innerHTML = lista.map(g => {
+    return `<tr>
+      <td>${formatarData(g.data)}</td>
+      <td>${esc(g.descricao)}</td>
+      <td class="valor-cel" style="text-align:right; color: var(--valor-amber);">${formatarMoeda(g.valor)}</td>
+      <td class="no-print"><div class="acoes">
+        <button class="icon-btn" data-acao="editar-gasto" data-id="${g.id}" title="Editar gasto">✏️</button>
+        <button class="icon-btn danger" data-acao="excluir-gasto" data-id="${g.id}" title="Excluir gasto">🗑️</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+tabelaGastosBody.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-acao]'); if(!btn) return;
+  if(perfilAtivo && perfilEstaBloqueado(perfilAtivo)) return;
+  const id = btn.dataset.id, acao = btn.dataset.acao;
+  
+  if(acao === 'excluir-gasto') {
+    const g = gastosDiarios.find(x => x.id === id); if(!g) return;
+    if(confirm(`Excluir o gasto "${g.descricao}"? O valor voltará para o saldo.`)){ 
+      gastosDiarios = gastosDiarios.filter(x => x.id !== id); 
+      salvarGastosDiarios(); 
+      renderGastosDiarios(); 
+      renderReserva();
+    }
+  }
+  if(acao === 'editar-gasto') {
+    const g = gastosDiarios.find(x => x.id === id); if(!g) return;
+    const novaDesc = prompt('Editar descrição:', g.descricao);
+    if(novaDesc === null) return;
+    const novoValorStr = prompt('Editar valor:', g.valor.toFixed(2));
+    if(novoValorStr === null) return;
+    const novoValor = parseFloat(novoValorStr.replace(',', '.'));
+    if(isNaN(novoValor) || novoValor <= 0) return alert('Valor inválido.');
+    
+    g.descricao = novaDesc.trim() || g.descricao;
+    g.valor = novoValor;
+    salvarGastosDiarios();
+    renderGastosDiarios();
+    renderReserva();
+  }
 });
 
 function exportarJSON(){
   if(!perfilAtivo){ alert('Selecione um perfil primeiro.'); return; }
   if(perfilEstaBloqueado(perfilAtivo)) return alert('Desbloqueie o perfil antes de exportar.');
   const dados = { 
-    versao: 4, 
+    versao: 12, 
     perfil: nomePerfilAtivo(), 
     exportadoEm: new Date().toISOString(), 
-    reserva: {
-      saldo: saldoReserva,
-      adicionado: reservaTotalAdd,
-      descontado: reservaTotalDesc
-    }, 
-    despesas: despesas 
+    reserva: baseFundo, 
+    despesas: despesas,
+    ganhos: ganhos,
+    gastosDiarios: gastosDiarios
   };
   const texto = JSON.stringify(dados, null, 2);
   const blob = new Blob([texto], { type: 'application/json;charset=utf-8' });
@@ -1830,26 +2161,42 @@ function importarJSON(arquivo){
       let lista = Array.isArray(dados) ? dados : (dados.despesas || []);
       const validas = lista.filter(d => d && typeof d.descricao === 'string' && !isNaN(parseFloat(d.valor)) && /^\d{4}-\d{2}-\d{2}$/.test(d.vencimento))
         .map(d => ({ id: d.id || uid(), descricao: d.descricao, valor: Number(d.valor), vencimento: d.vencimento, pago: !!d.pago, criadoEm: d.criadoEm || Date.now() }));
-      if(!validas.length) return alert('O arquivo não contém contas válidas.');
-      const substituir = confirm(`Arquivo lido: ${validas.length} conta(s).\n\nOK = Substituir as contas do perfil "${nomePerfilAtivo()}"\nCancelar = Mesclar com as existentes`);
-      if(substituir) despesas = validas;
-      else { const ids = new Set(despesas.map(d => d.id)); for(const d of validas) { if(!ids.has(d.id)) { despesas.push(d); ids.add(d.id); } } }
       
-      // Importa o histórico da reserva se existir
-      if(dados.reserva) {
-        if(typeof dados.reserva === 'object') {
-          saldoReserva = parseFloat(dados.reserva.saldo) || 0;
-          reservaTotalAdd = parseFloat(dados.reserva.adicionado) || 0;
-          reservaTotalDesc = parseFloat(dados.reserva.descontado) || 0;
+      const validasGanhos = Array.isArray(dados.ganhos) ? dados.ganhos.filter(g => g && g.descricao && !isNaN(parseFloat(g.valor)) && g.data).map(g => ({
+        id: g.id || uid(), descricao: g.descricao, valor: Number(g.valor), data: g.data, criadoEm: g.criadoEm || Date.now()
+      })) : [];
+
+      const validasGastos = Array.isArray(dados.gastosDiarios) ? dados.gastosDiarios.filter(g => g && g.descricao && !isNaN(parseFloat(g.valor)) && g.data).map(g => ({
+        id: g.id || uid(), descricao: g.descricao, valor: Number(g.valor), data: g.data, criadoEm: g.criadoEm || Date.now()
+      })) : [];
+
+      if(!validas.length && !validasGanhos.length && !validasGastos.length) return alert('O arquivo não contém dados válidos.');
+      
+      const substituir = confirm(`Arquivo lido: ${validas.length} conta(s), ${validasGanhos.length} ganho(s) e ${validasGastos.length} gasto(s).\n\nOK = Substituir os dados atuais\nCancelar = Mesclar com os existentes`);
+      
+      if(substituir) {
+        despesas = validas;
+        ganhos = validasGanhos;
+        gastosDiarios = validasGastos;
+      } else { 
+        const ids = new Set(despesas.map(d => d.id)); 
+        for(const d of validas) { if(!ids.has(d.id)) { despesas.push(d); ids.add(d.id); } } 
+        const idsG = new Set(ganhos.map(g => g.id));
+        for(const g of validasGanhos) { if(!idsG.has(g.id)) { ganhos.push(g); idsG.add(g.id); } }
+        const idsGD = new Set(gastosDiarios.map(g => g.id));
+        for(const g of validasGastos) { if(!idsGD.has(g.id)) { gastosDiarios.push(g); idsGD.add(g.id); } }
+      }
+      
+      if(dados.reserva !== undefined) {
+        if(typeof dados.reserva === 'object' && dados.reserva !== null) {
+          baseFundo = parseFloat(dados.reserva.saldo) || 0;
         } else if (typeof dados.reserva === 'number' || !isNaN(parseFloat(dados.reserva))) {
-          saldoReserva = parseFloat(dados.reserva);
-          reservaTotalAdd = saldoReserva;
-          reservaTotalDesc = 0;
+          baseFundo = parseFloat(dados.reserva);
         }
         salvarReserva();
       }
 
-      salvar(); resetForm(); render(); alert(`✅ Importação concluída no perfil "${nomePerfilAtivo()}"!`);
+      salvar(); salvarGanhos(); salvarGastosDiarios(); resetForm(); render(); renderGanhos(); renderGastosDiarios(); alert(`✅ Importação concluída no perfil "${nomePerfilAtivo()}"!`);
     }catch(err){ alert('❌ Erro ao ler o JSON.'); }
   };
   leitor.readAsText(arquivo, 'utf-8');
@@ -1942,6 +2289,8 @@ function render(){
     $('#lembretes').innerHTML = '';
     filtroMes.innerHTML = '<option value="">Todos os meses</option>';
     tabelaBody.innerHTML = '';
+    tabelaGanhosBody.innerHTML = '';
+    tabelaGastosBody.innerHTML = '';
     renderReserva();
     return;
   }
@@ -1955,6 +2304,8 @@ function render(){
   renderLembretes();
   renderTabela();
   renderReserva();
+  renderGanhos();
+  renderGastosDiarios();
 }
 
 function renderFiltroMeses(){
@@ -2052,22 +2403,14 @@ form.addEventListener('submit', (e) => {
   if(editandoId){
     const d = despesas.find(x => x.id === editandoId);
     if(d){
-      // Se a despesa já estava paga, primeiro devolve o valor antigo para a reserva (retira o desconto)
-      if(d.pago) ajustarReserva(d.valor, 'conta-desfeita');
-      
       d.descricao = descricao;
       d.valor = valor;
       d.vencimento = vencimento;
       d.pago = pago;
-
-      // Se continuou paga (ou ficou paga agora), aplica o desconto do novo valor
-      if(d.pago) ajustarReserva(d.valor, 'conta-paga');
     }
   } else {
     const nova = { id: uid(), descricao, valor, vencimento, pago, criadoEm: Date.now() };
     despesas.push(nova);
-    // Se já foi cadastrada como paga, desconta
-    if(nova.pago) ajustarReserva(nova.valor, 'conta-paga');
   }
   
   salvar(); resetForm(); render();
@@ -2084,10 +2427,6 @@ tabelaBody.addEventListener('click', (e) => {
     const d = despesas.find(x => x.id === id); 
     if(d){ 
       d.pago = !d.pago; 
-      // Se virou paga, subtrai da reserva. Se voltou para pendente, desfaz o desconto.
-      if(d.pago) ajustarReserva(d.valor, 'conta-paga');
-      else ajustarReserva(d.valor, 'conta-desfeita');
-      
       salvar(); render(); 
     } 
   }
@@ -2100,9 +2439,6 @@ tabelaBody.addEventListener('click', (e) => {
   if(acao === 'excluir') {
     const d = despesas.find(x => x.id === id); if(!d) return;
     if(confirm(`Excluir "${d.descricao}"?`)){ 
-      // Se a conta era paga, devolve o valor à reserva (desfaz o desconto) ao ser excluída
-      if(d.pago) ajustarReserva(d.valor, 'conta-desfeita');
-      
       despesas = despesas.filter(x => x.id !== id); 
       if(editandoId === id) resetForm(); 
       salvar(); render(); 
@@ -2121,10 +2457,6 @@ function carregarExemplos(){
   const criar = (offset, desc, val, pago) => { const dt = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + offset); return { id: uid(), descricao: desc, valor: val, vencimento: isoDe(dt), pago, criadoEm: Date.now() }; };
   
   despesas = [ criar(-10, 'Água', 89.40, true), criar(-12, 'Cartão de crédito', 640.20, true), criar(-5, 'Internet fibra', 119.90, false), criar(0, 'Energia elétrica', 245.50, false), criar(3, 'Aluguel', 1500.00, false), criar(9, 'Seguro do carro', 210.00, false) ];
-  
-  // Ajusta a reserva baseado no que foi carregado como pago
-  const totalPagoExemplo = despesas.filter(d => d.pago).reduce((s, d) => s + d.valor, 0);
-  ajustarReserva(totalPagoExemplo, 'conta-paga');
 
   salvar(); resetForm(); render();
 }
@@ -2142,6 +2474,8 @@ function carregarExemplos(){
     perfilAtivo = p.id;
     try{ localStorage.setItem(PROFILE_ACTIVE_KEY, p.id); }catch(e){}
     carregarDespesas();
+    carregarGanhos();
+    carregarGastosDiarios();
     carregarReserva();
     if(perfilEstaBloqueado(p.id)){
       setTimeout(() => abrirLoginModal(p.id), 200);
@@ -2151,6 +2485,8 @@ function carregarExemplos(){
     if(p){
       perfilAtivo = p.id;
       carregarDespesas();
+      carregarGanhos();
+      carregarGastosDiarios();
       carregarReserva();
       if(perfilEstaBloqueado(p.id)){
         setTimeout(() => abrirLoginModal(p.id), 200);
@@ -2160,6 +2496,8 @@ function carregarExemplos(){
       perfilAtivo = p2.id;
       try{ localStorage.setItem(PROFILE_ACTIVE_KEY, p2.id); }catch(e){}
       carregarDespesas();
+      carregarGanhos();
+      carregarGastosDiarios();
       carregarReserva();
     }
   }
